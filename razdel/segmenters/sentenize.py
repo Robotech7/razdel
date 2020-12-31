@@ -157,7 +157,7 @@ def initials_left(split):
 
 
 def npa_splitter(split):
-    if split.right_word[0].isupper() and split.left_token in SOKRS or split.left_token in split.exclusion and split.delimiter == '.':
+    if split.right_word[0].isupper() and split.left_token in SOKRS and split.delimiter == '.':
         return JOIN
     else:
         return
