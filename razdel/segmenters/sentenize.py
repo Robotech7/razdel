@@ -52,7 +52,7 @@ BULLET_CHARS = set('§абвгдеabcdef')
 BULLET_BOUNDS = '.)'
 BULLET_SIZE = 20
 
-DELIMITERS = ENDINGS + ';' + GENERIC_QUOTES + CLOSE_QUOTES + CLOSE_BRACKETS
+DELIMITERS = ENDINGS + GENERIC_QUOTES + CLOSE_QUOTES + CLOSE_BRACKETS
 SMILE_PREFIX = re.compile(r'^\s*' + SMILES, re.U)
 
 
@@ -154,6 +154,13 @@ def initials_left(split):
         return JOIN
     if left.lower() in INITIALS:
         return JOIN
+
+
+def npa_splitter(split):
+    if split.right_word[0].isupper() and split.left_token in SOKRS or split.left_token in split.exclusion and split.delimiter == '.':
+        return JOIN
+    else:
+        return
 
 
 ##########
@@ -340,6 +347,7 @@ RULES = [FunctionRule(_) for _ in [
     sokr_left,
     inside_pair_sokr,
     initials_left,
+    npa_splitter,
 
     list_item,
 
